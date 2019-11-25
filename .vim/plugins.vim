@@ -5,5 +5,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'lervag/vimtex'
 
 call plug#end()
