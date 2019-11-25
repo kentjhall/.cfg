@@ -36,3 +36,7 @@ let g:lightline = {
 
 " NERDTree
 map <C-o> :NERDTreeToggle<CR>
+
+" LaTeX-Box
+map <F5> :Latexmk<CR>
+map <F6> :LatexView<CR>
