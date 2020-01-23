@@ -20,7 +20,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	brew install macvim cmake
 	brew upgrade macvim cmake
 else
-	sudo apt install vim cmake
+	sudo apt install vim-gtk clang cmake curl python python-dev
 fi
 cd $HOME/.vim/plugged/YouCompleteMe
 git submodule update --init --recursive
