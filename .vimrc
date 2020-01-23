@@ -35,7 +35,22 @@ let g:lightline = {
       \ }
 
 " NERDTree
-map <C-o> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+map <C-n> :NERDTreeToggle<CR>  " open and close file tree
+nmap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
+let g:NERDTreeHijackNetrw=0
+
+
+" ctrl-p
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+" Use the nearest .git|.svn|.hg|.bzr directory as the cwd
+let g:ctrlp_working_path_mode = 'r'
+nmap <leader>p :CtrlP<cr>  " enter file search mode
 
 " LaTeX-Box
 map <F5> :Latexmk<CR>
