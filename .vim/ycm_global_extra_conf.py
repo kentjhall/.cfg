@@ -34,50 +34,8 @@ import os
 import ycm_core
 
 flags = [
-    '-x',
-    'c',
-    '-DCC_HAVE_ASM_GOTO',
-    '-DCONFIG_AS_AVX2=1',
-    '-DCONFIG_AS_AVX=1',
-    '-DCONFIG_AS_CFI=1',
-    '-DCONFIG_AS_CFI_SECTIONS=1',
-    '-DCONFIG_AS_CFI_SIGNAL_FRAME=1',
-    '-DCONFIG_AS_FXSAVEQ=1',
-    '-DCURSES_LOC=<ncurses.h>',
-    '-DDISABLE_BRANCH_PROFILING',
-    '-DKBUILD_BASENAME=KBUILD_STR(a20)',
-    '-DKBUILD_MODNAME=KBUILD_STR(a20)',
-    '-DKBUILD_STR(s)=#s',
-    '-DLINKER_SCRIPT',
-    '-DLOCALE',
-    '-DSVGA_MODE=NORMAL_VGA',
-    '-D_SETUP',
-    '-D_WAKEUP',
-    '-D__ASSEMBLY__',
-    '-D__EXPORTED_HEADERS__',
-    '-D__KERNEL__',
-    '-Iarch/x86/include/generated',
-    '-Iarch/x86/include/generated/uapi',
-    '-Iarch/x86/realmode/rm',
-    '-Iinclude',
-    '-Iinclude/generated/uapi',
-    '-Iscripts/kconfig',
-    '-Wall',
-    '-Wdeclaration-after-statement',
-    '-Werror-implicit-function-declaration',
-    '-Wframe-larger-than=',
-    '-Wmissing-prototypes',
-    '-Wno-format-security',
-    '-Wno-pointer-sign',
-    '-Wno-sign-compare',
-    '-Wno-trigraphs',
-    '-Wno-unused-but-set-variable',
-    '-Wstrict-prototypes',
-    '-Wundef',
-    '-isystem',
-    '-m64',
-    '-nostdinc',
-    '-include', 'include/generated/autoconf.h',
+    '-x', 'c',
+    '-Wall'
 ]
 
 
@@ -156,18 +114,14 @@ def GetCompilationInfoForFile( filename ):
   return database.GetCompilationInfoForFile( filename )
 
 
-def Settings( **kwargs ):
-  if kwargs[ 'language' ] != 'cfamily':
-    return {}
-
+def FlagsForFile( filename, **kwargs ):
   if database:
     # Bear in mind that compilation_info.compiler_flags_ does NOT return a
     # python list, but a "list-like" StringVec object
-    compilation_info = GetCompilationInfoForFile( kwargs[ 'filename' ] )
+    compilation_info = GetCompilationInfoForFile( filename )
     if not compilation_info:
-      return {}
+      return None
 
-    relative_to = compilation_info.compiler_working_dir_
     final_flags = MakeRelativePathsInFlagsAbsolute(
       compilation_info.compiler_flags_,
       compilation_info.compiler_working_dir_ )
@@ -178,7 +132,5 @@ def Settings( **kwargs ):
 
   return {
     'flags': final_flags,
-    'include_paths_relative_to_dir': relative_to,
-    'override_filename': filename,
     'do_cache': True
   }
