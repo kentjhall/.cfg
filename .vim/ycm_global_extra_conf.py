@@ -156,14 +156,18 @@ def GetCompilationInfoForFile( filename ):
   return database.GetCompilationInfoForFile( filename )
 
 
-def FlagsForFile( filename, **kwargs ):
+def Settings( **kwargs ):
+  if kwargs[ 'language' ] != 'cfamily':
+    return {}
+
   if database:
     # Bear in mind that compilation_info.compiler_flags_ does NOT return a
     # python list, but a "list-like" StringVec object
-    compilation_info = GetCompilationInfoForFile( filename )
+    compilation_info = GetCompilationInfoForFile( kwargs[ 'filename' ] )
     if not compilation_info:
-      return None
+      return {}
 
+    relative_to = compilation_info.compiler_working_dir_
     final_flags = MakeRelativePathsInFlagsAbsolute(
       compilation_info.compiler_flags_,
       compilation_info.compiler_working_dir_ )
@@ -174,5 +178,7 @@ def FlagsForFile( filename, **kwargs ):
 
   return {
     'flags': final_flags,
+    'include_paths_relative_to_dir': relative_to,
+    'override_filename': filename,
     'do_cache': True
   }
