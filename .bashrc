@@ -77,3 +77,11 @@ if ! shopt -oq posix; then
 fi
 
 export EDITOR=vim
+
+# helper function aliases
+function git-fetch-all() {
+	git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+	git fetch --all
+}
+
+export -f git-fetch-all
