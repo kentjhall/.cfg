@@ -8,5 +8,6 @@ Plug 'tpope/vim-commentary'
 Plug 'kien/ctrlp.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'vim-airline/vim-airline'
 
 call plug#end()

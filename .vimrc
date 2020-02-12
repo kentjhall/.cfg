@@ -68,6 +68,6 @@ let g:ycm_show_diagnostics_ui = 0
 let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
 
-" LaTeX-Box
-map <F5> :Latexmk<CR>
-map <F6> :LatexView<CR>
+" Airline
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
