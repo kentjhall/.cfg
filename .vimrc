@@ -34,7 +34,12 @@ let g:ctrlp_custom_ignore = {
 \}
 " Use the nearest .git|.svn|.hg|.bzr directory as the cwd
 let g:ctrlp_working_path_mode = 'r'
-nmap <leader>p :CtrlP<cr>  " enter file search mode
+" Caching to speed up search
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+nmap <leader>p :CtrlP<CR>
 
 " YCM
 let g:ycm_semantic_triggers =  {
