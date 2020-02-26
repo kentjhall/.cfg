@@ -54,7 +54,7 @@ let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
 
 " Airline
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'fruit_punch'
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 " -----------Buffer Management---------------
