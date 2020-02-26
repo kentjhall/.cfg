@@ -1,6 +1,8 @@
 set number
 set autoindent
+set hidden
 set undodir=~/.vim/undodir
+set undofile
 syntax on
 
 let mapleader = " "
