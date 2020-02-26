@@ -3,6 +3,8 @@ set autoindent
 set undodir=~/.vim/undodir
 syntax on
 
+let mapleader = " "
+
 " auto close brackets
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
@@ -17,29 +19,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 so ~/.vim/plugins.vim
 
-" lightline
-set laststatus=2
-set noshowmode
-if !has('gui_running')
-	set t_Co=256
-endif
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
 " NERDTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-o> :NERDTreeToggle<CR>  " open and close file tree
-nmap <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
+map <leader>n :NERDTreeFind<CR>  " open current buffer in file tree
 let g:NERDTreeHijackNetrw=0
 
 " ctrl-p
@@ -69,5 +54,17 @@ let g:ycm_confirm_extra_conf = 0
 set completeopt-=preview
 
 " Airline
+let g:airline_theme = 'bubblegum'
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
+" -----------Buffer Management---------------
+set hidden " Allow buffers to be hidden if you've modified a buffer
+" Move to the next buffer
+map <leader>l :bnext<CR>
+" Move to the previous buffer
+map <leader>h :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+map <leader>q :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+map <leader>bl :ls<CR>
