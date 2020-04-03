@@ -62,9 +62,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# any extra alias definitions.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+# source any machine-dependent extras
+if [ -f ~/.bash_extras ]; then
+    . ~/.bash_extras
 fi
 
 # enable programmable completion features
