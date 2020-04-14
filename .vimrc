@@ -7,9 +7,6 @@ syntax on
 
 let mapleader = " "
 
-set mouse=a
-map <LeftMouse> <nop>
-
 " auto close brackets
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
