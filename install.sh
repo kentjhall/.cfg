@@ -13,9 +13,6 @@ source $HOME/.bashrc
 YCM_PATH="$HOME/.vim/plugged/YouCompleteMe"
 [ ! -d "$YCM_PATH" ] && YCM_INSTALL=true || YCM_INSTALL=false
 
-# install vim plugins
-vim +PlugInstall +qall 
-
 # set OS-specific variables
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	# on macOS, make sure homebrew is installed
@@ -28,6 +25,9 @@ else
 	PM="sudo apt-get"
 	YCM_DEPS="build-essential cmake vim python3-dev mono-devel golang-go nodejs"
 fi	
+
+# install vim plugins
+vim +PlugInstall +qall 
 
 # install YMC vim plugin if not already installed
 if $YCM_INSTALL; then
