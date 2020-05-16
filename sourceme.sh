@@ -6,7 +6,7 @@ done
 
 # copy dotfiles to home directory
 cd "$HOME/.cfg"
-for cfg in $(ls -A); do
+for cfg in $(ls -A --color=never); do
 	case "$cfg" in
 		.git | sourceme.sh | host-specific)
 			;;
@@ -18,7 +18,7 @@ done
 
 # copy any host-specific dotfiles
 HSP_PATH="host-specific/$HOSTNAME"
-[ -d "$HSP_PATH" ] && for cfg in $(ls -A "$HSP_PATH"); do cp -R "$HSP_PATH/$cfg" "$HOME"; done
+[ -d "$HSP_PATH" ] && for cfg in $(ls -A --color=never "$HSP_PATH"); do cp -R "$HSP_PATH/$cfg" "$HOME"; done
 
 # source the copied bashrc
 . "$HOME/.bashrc"
