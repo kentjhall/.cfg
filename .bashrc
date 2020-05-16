@@ -63,8 +63,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # source any machine-dependent extras
-if [ -f ~/.bash_extras ]; then
-    . ~/.bash_extras
+if [ -f ~/.bash_extras.sh ]; then
+    . ~/.bash_extras.sh
 fi
 
 # enable programmable completion features
