@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # parse arguments
 DO_ALL=false
 for arg in "$@"; do
@@ -7,14 +5,23 @@ for arg in "$@"; do
 done
 
 # copy dotfiles to home directory
-cd $HOME/.cfg
+cd "$HOME/.cfg"
 for cfg in $(ls -A); do
-	if [ "$cfg" != ".git" ] && [ "$cfg" != "install.sh" ]; then cp -R $cfg $HOME; fi
+	case "$cfg" in
+		.git | sourceme.sh | host-specific)
+			;;
+		*)
+			cp -R "$cfg" "$HOME"
+			;;
+	esac
 done
 
-# determine whether to go through YCM install process
-YCM_PATH="$HOME/.vim/plugged/YouCompleteMe"
-[ ! -d "$YCM_PATH" ] && YCM_INSTALL=true || YCM_INSTALL=false
+# copy any host-specific dotfiles
+HSP_PATH="host-specific/$HOSTNAME"
+[ -d "$HSP_PATH" ] && for cfg in $(ls -A "$HSP_PATH"); do cp -R "$HSP_PATH/$cfg" "$HOME"; done
+
+# source the copied bashrc
+. "$HOME/.bashrc"
 
 # set OS-specific variables
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -31,6 +38,10 @@ else
 
 	sudo ln -sf /usr/bin/python3 /usr/local/bin/python3 # an annoying fix for Linux/Mac compat on the YCM setup
 fi	
+
+# determine whether to go through YCM install process
+YCM_PATH="$HOME/.vim/plugged/YouCompleteMe"
+[ ! -d "$YCM_PATH" ] && YCM_INSTALL=true || YCM_INSTALL=false
 
 # YCM pre-install
 if $YCM_INSTALL || $DO_ALL; then
