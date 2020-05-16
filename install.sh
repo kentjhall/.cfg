@@ -25,6 +25,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	PM="brew"
 	YCM_DEPS="cmake macvim python mono go nodejs"
 else
+	sudo ln -sf /usr/bin/python3 /usr/local/bin/python3 # an annoying fix for YCM Linux/Mac compat
 	PM="sudo apt-get"
 	YCM_DEPS="build-essential cmake vim python3-dev mono-devel golang-go nodejs"
 fi	
