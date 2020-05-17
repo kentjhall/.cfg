@@ -3,9 +3,17 @@ set autoindent
 set hidden
 set undodir=~/.vim/undodir
 set undofile
+set noexpandtab
+set tabstop=8 shiftwidth=8 softtabstop=0
 syntax on
 
+" leader is spacebar
 let mapleader = " "
+
+" restore last position in file on reopen
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 " auto close brackets
 inoremap {      {}<Left>
