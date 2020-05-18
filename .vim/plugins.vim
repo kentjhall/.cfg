@@ -9,6 +9,6 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tounaishouta/coq.vim'
+Plug 'whonore/Coqtail' | Plug 'let-def/vimbufsync'
 
 call plug#end()

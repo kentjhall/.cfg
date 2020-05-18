@@ -5,6 +5,7 @@ set undodir=~/.vim/undodir
 set undofile
 set noexpandtab
 set tabstop=8 shiftwidth=8 softtabstop=0
+filetype plugin indent on
 syntax on
 
 " leader is spacebar
