@@ -67,6 +67,9 @@ if [ -f ~/.bash_extras.sh ]; then
     . ~/.bash_extras.sh
 fi
 
+# source opam init script if present
+[ -r ~/.opam/opam-init/init.sh ] && . ~/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
 # enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
