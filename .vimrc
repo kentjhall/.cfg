@@ -85,3 +85,33 @@ map <leader>h :bprevious<CR>
 map <leader>q :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 map <leader>bl :ls<CR>
+
+" Coqtail (from jhui)
+if !has('nvim')
+    " Fix god-awful colors
+    function! g:CoqtailHighlight()
+      hi def CoqtailChecked ctermbg=236
+      hi def CoqtailSent    ctermbg=237
+    endfunction
+
+    augroup coqtail_mappings
+        autocmd!
+        " This is the single most important command for a CoqIDE
+        autocmd Filetype coq
+            \   nnoremap <buffer> <c-c>.             :CoqToLine<CR>
+            \|  inoremap <buffer> <c-c>.        <Esc>:CoqToLine<CR>
+            \|  nnoremap <buffer> <c-c>l             m`$:CoqToLine<CR>``
+            \|  inoremap <buffer> <c-c>l        <Esc>m`$:CoqToLine<CR>``
+            \|  nnoremap <buffer> <c-c><CR>          m`$:CoqToLine<CR>``
+            \|  inoremap <buffer> <c-c><CR>     <Esc>m`$:CoqToLine<CR>``
+
+        " Useful for navigation
+        autocmd Filetype coq
+            \   nmap <buffer> <c-c>j                 :CoqNext<CR>
+            \|  nmap <buffer> <c-c>k                 :CoqUndo<CR>
+            \|  nmap <buffer> <c-c>h                 :CoqJumpToEnd<CR>
+            \|  nmap <buffer> <c-c><space>           :CoqGotoGoal!<CR>
+    augroup END
+else
+    let g:coqtail_nomap = 1
+endif
