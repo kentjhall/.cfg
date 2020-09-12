@@ -1,4 +1,4 @@
-export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/usr/sbin:$HOME/.local/bin
 
 # If not running interactively, don't do anything
 case $- in
