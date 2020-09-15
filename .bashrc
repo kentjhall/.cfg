@@ -63,8 +63,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # source any machine-dependent extras
-if [ -f ~/.bash_extras.sh ]; then
-    . ~/.bash_extras.sh
+if [ -f ~/.bash_extras ]; then
+    . ~/.bash_extras
 fi
 
 # source opam init script if present

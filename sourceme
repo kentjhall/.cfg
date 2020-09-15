@@ -31,7 +31,7 @@ START_PWD="$PWD"
 cd "$(dirname $BASH_SOURCE)" 
 for cfg in $(ls $LS_OPTS); do
 	case "$cfg" in
-		.git | sourceme.sh | host-specific)
+		.git | sourceme | host-specific)
 			;;
 		*)
 			cp -R "$cfg" "$HOME"
