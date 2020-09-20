@@ -8,7 +8,7 @@ vbox() {
 			VM_PORT=2222
 			;;
 		deb)
-			VM_NAME="Debian Linux"
+			VM_NAME="Debian"
 			VM_PORT=2200
 			;;
 		*)
