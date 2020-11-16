@@ -1,15 +1,14 @@
-vbox() {
+alias vmrun="/Applications/VMWare\ Fusion.app/Contents/Library/vmrun"
+
+vmw() {
 	# parse args
 	VM_NAME=
-	VM_PORT=
 	case "$1" in
 		OS)
 			VM_NAME="Debian (OS 4118)"
-			VM_PORT=2222
 			;;
 		deb)
 			VM_NAME="Debian"
-			VM_PORT=2200
 			;;
 		*)
 			echo "Unrecognized VM identifier" >&2
@@ -17,28 +16,30 @@ vbox() {
 			;;
 	esac
 	ACTION="$2"
+	shift
+
+	VM_PATH="$HOME/Virtual Machines.localized/$VM_NAME.vmwarevm/$VM_NAME.vmx"
 
 	# stopping the VM
 	if [ "$ACTION" == "stop" ]; then
-		ssh -p "$VM_PORT" kent@localhost sudo shutdown -h now
+		vmrun stop "$VM_PATH"
 		return
 	fi
 
-	# rebooting the VM
-	if [ "$ACTION" == "reboot" ]; then
-		ssh -p "$VM_PORT" kent@localhost sudo shutdown -r now
+	# restarting the VM
+	if [ "$ACTION" == "restart" ]; then
+		vmrun stop "$VM_PATH" || return
+		shift
 	fi
 
 	# start the VM (if not already running)	
-	if ! VBoxManage list runningvms | grep "$VM_NAME" > /dev/null; then
-		VBoxManage startvm "$VM_NAME" --type headless || return 1
+	if ! vmrun list | tail -n +2 | grep "$VM_PATH" > /dev/null; then
+		vmrun start "$VM_PATH" nogui || return
 	fi
 
-	# ssh in (retries in case currently booting up)
-	while :; do
-		ssh -p "$VM_PORT" kent@localhost 2> /dev/null
-		[ "$?" -eq 255 ] || break
-	done
+	# get guest IP address (loop in case booting up)
+	VM_IP="$(vmrun getGuestIpAddress "$VM_PATH" -wait)" || return
 
-	return 0
+	# ssh in
+	ssh "kent@$VM_IP" "$@"
 }
