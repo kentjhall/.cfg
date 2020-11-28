@@ -96,3 +96,6 @@ if !has('nvim')
 else
     let g:coqtail_nomap = 1
 endif
+
+" vim-oscyank
+vnoremap <leader>c :OSCYank<CR>
