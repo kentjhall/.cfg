@@ -1,4 +1,5 @@
 export PATH="/opt/homebrew/bin:$PATH"
+alias oldbrew="arch -x86_64 /usr/local/bin/brew"
 
 prl() {
 	ID="$1"
