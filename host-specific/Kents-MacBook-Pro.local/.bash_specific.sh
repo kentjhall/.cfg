@@ -37,12 +37,9 @@ vmw() {
 		vmrun start "$VM_PATH" nogui || return
 	fi
 
-	# get guest IP address (loop in case booting up)
+	# get guest IP address (will wait if booting up)
 	VM_IP="$(vmrun getGuestIpAddress "$VM_PATH" -wait)" || return
 
 	# ssh in
 	ssh "kent@$VM_IP" "$@"
 }
-
-export WASMTIME_HOME="$HOME/.wasmtime"
-export PATH="$PATH:$WASMTIME_HOME/bin"
