@@ -1,4 +1,4 @@
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm/bin:$PATH"
 alias oldbrew="arch -x86_64 /usr/local/bin/brew"
 
 prl() {
