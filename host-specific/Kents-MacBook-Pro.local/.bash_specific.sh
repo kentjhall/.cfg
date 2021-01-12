@@ -3,12 +3,15 @@ alias vmrun="/Applications/VMWare\ Fusion.app/Contents/Library/vmrun"
 vmw() {
 	# parse args
 	VM_NAME=
+	VM_USER=
 	case "$1" in
 		OS)
 			VM_NAME="Debian (OS 4118)"
+			VM_USER="kent"
 			;;
 		deb)
 			VM_NAME="Debian"
+			VM_USER="kent"
 			;;
 		*)
 			echo "Unrecognized VM identifier" >&2
@@ -41,5 +44,5 @@ vmw() {
 	VM_IP="$(vmrun getGuestIpAddress "$VM_PATH" -wait)" || return
 
 	# ssh in
-	ssh "kent@$VM_IP" "$@"
+	ssh "$VM_USER@$VM_IP" "$@"
 }
