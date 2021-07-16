@@ -6,6 +6,7 @@ set undofile
 set noexpandtab
 set tabstop=8 shiftwidth=8 softtabstop=0
 set textwidth=80
+set backspace=indent,eol,start
 filetype plugin indent on
 syntax on
 
