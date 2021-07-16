@@ -9,5 +9,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'whonore/Coqtail' | Plug 'let-def/vimbufsync'
 Plug 'ojroques/vim-oscyank'
+Plug 'dense-analysis/ale'
 
 call plug#end()

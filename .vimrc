@@ -100,3 +100,10 @@ endif
 
 " vim-oscyank
 vnoremap <leader>c :OSCYank<CR>
+
+" Ale
+let g:ale_linters = {
+\   'rust': ['analyzer'],
+\}
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
