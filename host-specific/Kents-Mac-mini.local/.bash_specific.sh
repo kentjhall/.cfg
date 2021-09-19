@@ -1,43 +1,49 @@
 export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm/bin:$PATH"
 alias oldbrew="arch -x86_64 /usr/local/bin/brew"
+alias vmrun="/Applications/VMWare\ Fusion\ Tech\ Preview.app/Contents/Library/vmrun"
 
-prl() {
-	ID="$1"
-	ACTION="$2"
-	shift
-
+vmw() {
 	# parse args
 	VM_NAME=
-	VM_PORT=
-	case "$ID" in
-		deb)
-			VM_NAME="Debian GNU Linux"
-			VM_PORT=2200
+	VM_USER=
+	case "$1" in
+		OS)
+			VM_NAME="Debian (4118)"
+			VM_USER="kent"
 			;;
 		*)
 			echo "Unrecognized VM identifier" >&2
 			return 1
 			;;
 	esac
+	ACTION="$2"
+	shift
+
+	VM_PATH="$HOME/Virtual Machines.localized/$VM_NAME.vmwarevm/$VM_NAME.vmx"
 
 	# stopping the VM
 	if [ "$ACTION" == "stop" ]; then
-		prl "$ID" sudo /sbin/shutdown -h now
+		vmrun stop "$VM_PATH"
 		return
 	fi
 
 	# restarting the VM
 	if [ "$ACTION" == "restart" ]; then
-		prl "$ID" sudo /sbin/shutdown -r now
-		while ! prl "$ID" true 2> /dev/null; do :; done # loop while rebooting
+		vmrun stop "$VM_PATH" || return
 		shift
 	fi
 
 	# start the VM (if not already running)	
-	if ! prlctl status "$VM_NAME" | grep running > /dev/null; then
-		prlctl start "$VM_NAME" || return
+	STARTED=false
+	if ! vmrun list | tail -n +2 | grep "$VM_PATH" > /dev/null; then
+		vmrun start "$VM_PATH" nogui || return
+		STARTED=true
 	fi
 
+	# get guest IP address (will wait if booting up)
+	VM_IP="$(vmrun getGuestIpAddress "$VM_PATH" -wait)" || return
+	"$STARTED" && sleep 1
+
 	# ssh in
-	ssh -p "$VM_PORT" kent@localhost "$@"
+	ssh "$VM_USER@$VM_IP" "$@"
 }
