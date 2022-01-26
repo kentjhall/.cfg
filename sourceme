@@ -27,17 +27,13 @@ START_PWD="$PWD"
 cd "$(dirname $BASH_SOURCE)" 
 for cfg in $(ls $LS_OPTS); do
 	case "$cfg" in
-		.git | sourceme | host-specific)
+		.git | sourceme)
 			;;
 		*)
 			cp -R "$cfg" "$HOME"
 			;;
 	esac
 done
-
-# copy any machine-specific dotfiles
-HSP_PATH="host-specific/$HOSTNAME"
-[ -d "$HSP_PATH" ] && for cfg in $(ls $LS_OPTS "$HSP_PATH"); do cp -R "$HSP_PATH/$cfg" "$HOME"; done
 
 # source the copied bashrc
 . "$HOME/.bashrc"
