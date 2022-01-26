@@ -7,7 +7,11 @@ vmw() {
 	VM_NAME=
 	VM_USER=
 	case "$1" in
-		Deb)
+		OS)
+			VM_NAME="Debian (OS 4118)"
+			VM_USER="kent"
+			;;
+		deb)
 			VM_NAME="Debian 11.x 64-bit Arm"
 			VM_USER="kent"
 			;;
